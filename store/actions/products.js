@@ -33,7 +33,11 @@ export const fetchProducts = () => {
             resData[key].imageUrl,
             resData[key].description,
             resData[key].costumerType,
-            resData[key].score
+            resData[key].score,
+            resData[key].lowestScore,
+            resData[key].highestScore,
+            resData[key].minScoreBreak,
+            resData[key].maxScoreBreak
           )
         );
       };      
@@ -52,7 +56,7 @@ export const fetchProducts = () => {
   };
 };
 
-export const fetchAcademies = () => {
+export const fetchScores = () => {
   return async (dispatch, getState) => {
     
     const userId = getState().auth.userId;
@@ -78,6 +82,10 @@ export const fetchAcademies = () => {
             resData[key].description,
             resData[key].costumerType,
             resData[key].score,
+            resData[key].lowestScore,
+            resData[key].highestScore,
+            resData[key].minScoreBreak,
+            resData[key].maxScoreBreak
           )
         );
       };      
@@ -111,7 +119,7 @@ export const deleteProduct = productId => {
   };
 };
 
-export const createProduct = (title, description, imageUrl, costumerType, score) => {
+export const createProduct = (title, description, imageUrl, costumerType, score, lowestScore) => {
   return async (dispatch, getState) => {
  
     const token = getState().auth.token;
@@ -129,6 +137,7 @@ export const createProduct = (title, description, imageUrl, costumerType, score)
           imageUrl,
           costumerType,
           score,
+          lowestScore,
           ownerId: userId
         })
       }
@@ -146,6 +155,7 @@ export const createProduct = (title, description, imageUrl, costumerType, score)
         imageUrl,
         costumerType,
         score,
+        lowestScore,
         ownerId: userId
       }
     });
@@ -166,7 +176,7 @@ export const updateProduct = (id, title, description, imageUrl, costumerType, sc
           title,
           description,
           imageUrl,
-          costumerType,
+          costumerType,        
           score          
         })
       }
@@ -184,7 +194,7 @@ export const updateProduct = (id, title, description, imageUrl, costumerType, sc
         description,
         imageUrl,
         costumerType,
-        score         
+        score               
       }
     });
   };

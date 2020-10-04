@@ -11,12 +11,6 @@ import AcademiesOverviewScreen, {screenOptions as AoverviewScreenOptions} from "
 import ProductDetailScreen, {
   screenOptions as detailScreenOptions
 } from "../screens/shop/ProductDetailScreen";
-import CartScreen, {
-  screenOptions as cartScreenOptions
-} from "../screens/shop/CartScreen";
-import OrdersScreen, {
-  screenOptions as orderScreenOptions
-} from "../screens/shop/OrdersScreen";
 import UserProductsScreen, {
   screenOptions as userScreenOptions
 } from "../screens/user/UserProductsScreen";
@@ -63,11 +57,11 @@ export const ProductsNavigator = () => {
         component={ProductDetailScreen}
         options={detailScreenOptions}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Cart"
         component={CartScreen}
         options={cartScreenOptions}
-      />
+      /> */}
     </Stack.Navigator>
   );
 };
@@ -89,66 +83,6 @@ export const AcademiesNavigator = () => {
         options={detailScreenOptions}
       />     
     </Stack.Navigator>
-  );
-};
-
-
-export const MastersNavigator = () => {
-  return (
-    <Stack.Navigator
-      headerBackTitleVisible={false}
-      headerLayoutPreset="center"
-      screenOptions={defaultNavOptions}
-    >
-      <Stack.Screen
-        name="ProductsOverview"
-        component={MastersOverviewScreen}
-        options={MoverviewScreenOptions}
-      />
-      <Stack.Screen
-        name="ProductDetail"
-        component={ProductDetailScreen}
-        options={detailScreenOptions}
-      />     
-    </Stack.Navigator>
-  );
-};
-
-export const DisciplesNavigator = () => {
-  return (
-    <Stack.Navigator
-      headerBackTitleVisible={false}
-      headerLayoutPreset="center"
-      screenOptions={defaultNavOptions}
-    >
-      <Stack.Screen
-        name="ProductsOverview"
-        component={DisciplesOverviewScreen}
-        options={DoverviewScreenOptions}
-      />
-      <Stack.Screen
-        name="ProductDetail"
-        component={ProductDetailScreen}
-        options={detailScreenOptions}
-      />     
-    </Stack.Navigator>
-  );
-};
-
-const OrderStack = createStackNavigator();
-export const OrdersNavigator = () => {
-  return (
-    <OrderStack.Navigator
-      headerBackTitleVisible={false}
-      headerLayoutPreset="center"
-      screenOptions={defaultNavOptions}
-    >
-      <OrderStack.Screen
-        name="Orders"
-        component={OrdersScreen}
-        options={orderScreenOptions}
-      />
-    </OrderStack.Navigator>
   );
 };
 
@@ -217,32 +151,6 @@ export const ShopNavigator = () => {
           )
         }}
       />
-      {/* <shopDrawer.Screen
-        name="Mestres"
-        component={MastersNavigator}
-        options={{
-          drawerIcon: props => (
-            <Ionicons
-              name={Platform.OS === "android" ? "md-contact" : "ios-contact"}
-              size={23}
-              color={props.color}
-            />
-          )
-        }}
-      /> */}
-      {/* <shopDrawer.Screen
-        name="Lutadores"
-        component={DisciplesNavigator}
-        options={{
-          drawerIcon: props => (
-            <Ionicons
-              name={Platform.OS === "android" ? "md-contacts" : "ios-contacts"}
-              size={23}
-              color={props.color}
-            />
-          )
-        }}
-      /> */}
       <shopDrawer.Screen
         name="Personal Score"
         component={AdminNavigator}
@@ -258,7 +166,7 @@ export const ShopNavigator = () => {
       />
       <shopDrawer.Screen
         name="comming soon..."
-        component={OrdersNavigator}
+        component={AdminNavigator}
         options={{
           drawerIcon: props => (
             <Ionicons
@@ -280,19 +188,3 @@ export const AuthNavigator = () => {
     <AuthStack.Screen name="Auth" component={AuthScreen} options={authScreenOptions}/>
   </AuthStack.Navigator>
 }
-// const AuthNavigator = createStackNavigator(
-//   {
-//     Auth: AuthScreen
-//   },
-//   {
-//     defaultNavigationOptions: defaultNavOptions
-//   }
-// );
-
-// const MainNavigator = createSwitchNavigator({
-//   Startup: StartupScreen,
-//   Auth: AuthNavigator,
-//   Shop: ShopNavigator
-// });
-
-// export default createAppContainer(MainNavigator);

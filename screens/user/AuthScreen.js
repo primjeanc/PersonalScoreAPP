@@ -102,7 +102,7 @@ const AuthScreen = props => {
     [dispatchFormState]
   );
 
-  const imageback = { uri:"https://fsb.zobj.net/crop.php?r=FuSrFO3wi1JU604IIhmgNcAxsaqmdYmIgF6mPiWzn6-ZJcz6AHpc0ev4KackpGQc450ARej2OIwP36bmn3O9AqKrVyBqHW5DjltNayTxIdf154GYjz82gYpi8wiE5tYWzrzVbIUfjTGcOL0BEFdxdzgjaahVAHXlffMLZt2enRQ-921FoX3_XqiaAC0"};
+  const imageback = { uri:"https://www.history.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTU3ODc4NjAzNTE3NDcwMDI1/ask-history-who-invented-basketball-istock_000006523151large-2.jpg"};
 
   return (
     <KeyboardAvoidingView
@@ -166,7 +166,7 @@ const AuthScreen = props => {
 };
 
 export const screenOptions = {
-  headerTitle: 'MMApp'
+  headerTitle: 'Personal Match Score'
 };
 
 const styles = StyleSheet.create({

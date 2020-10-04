@@ -56,14 +56,16 @@ const EditProductScreen = props => {
       title: editedProduct ? editedProduct.title : "",
       imageUrl: editedProduct ? editedProduct.imageUrl : "",
       description: editedProduct ? editedProduct.description : "",
-      costumerType: editedProduct ? editedProduct.costumerType : ""// era so ""
-      //score: editedProduct ? editedProduct.score : ""
+      costumerType: editedProduct ? editedProduct.costumerType : "",
+      score: editedProduct ? editedProduct.score : ""
+      
     },
     inputValidities: {
       title: editedProduct ? true : false,
       imageUrl: editedProduct ? true : false,
       description: editedProduct ? true : false,
-      costumerType: editedProduct ? true : false
+      costumerType: editedProduct ? true : false,
+      score: editedProduct ? true : false
     },
     formIsValid: editedProduct ? true : false
   });
@@ -92,7 +94,9 @@ const EditProductScreen = props => {
             formState.inputValues.description,
             formState.inputValues.imageUrl,
             formState.inputValues.costumerType,
-            formState.inputValues.score
+            formState.inputValues.score,
+            formState.inputValues.lowestScore,
+            formState.inputValues.highestScore
           )
         );
       } else {
@@ -102,7 +106,9 @@ const EditProductScreen = props => {
             formState.inputValues.description,
             formState.inputValues.imageUrl,
             formState.inputValues.costumerType,
-            formState.inputValues.score
+            formState.inputValues.score,
+            formState.inputValues.lowestScore,
+            formState.inputValues.highestScore
           )
         );
       }
@@ -185,7 +191,7 @@ const EditProductScreen = props => {
           <Input
               id="costumerType"
               label="Season"
-              errorText="Please enter a valid price!"
+              errorText="Please enter a valid season number!"
               keyboardType="decimal-pad"//"decimal-pad"
               returnKeyType="next"
               onInputChange={inputChangeHandler}

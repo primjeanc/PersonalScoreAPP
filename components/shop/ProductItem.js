@@ -27,8 +27,7 @@ const ProductItem = props => {
               <Image style={styles.image} source={{ uri: props.image }} />
             </View>
             <View style={styles.details}>
-              <Text style={styles.title}>{props.title}</Text>
-              {/* <Text style={styles.text1}>${props.price.toFixed(2)}</Text> */}
+              <Text style={styles.title}>{props.title}</Text>         
               <Text style={styles.text1}>{props.score}</Text>
               <Text style={styles.text1}>{props.costumerType}</Text>              
             </View>

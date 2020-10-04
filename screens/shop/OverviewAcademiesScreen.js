@@ -27,7 +27,7 @@ const ProductsOverviewScreen = props => {
     setIsRefreshing(true);
     
     try {
-      const listaGeral = productsActions.fetchAcademies();//pode usar o comando no Dispatch*
+      const listaGeral = productsActions.fetchScores();//pode usar o comando no Dispatch*
       await dispatch(listaGeral);
     } catch (err) {
       setError(err.message);

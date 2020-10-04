@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, FlatList, Button, Platform, Alert } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-
 import HeaderButton from "../../components/UI/HeaderButton";
 import ProductItem from "../../components/shop/ProductItem";
 import Colors from "../../constants/Colors";
@@ -32,7 +31,7 @@ const UserProductsScreen = props => {
   if (userProducts.length === 0) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text>Nenhum perfil cadastrado</Text>
+        <Text>Nenhuma partida cadastrada</Text>
       </View>
     );
   }

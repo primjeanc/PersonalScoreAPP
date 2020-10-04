@@ -27,7 +27,8 @@ export default (state = initialState, action) => {
         action.productData.imageUrl,
         action.productData.description,
         action.productData.costumerType,
-        action.productData.score
+        action.productData.score,
+        action.productData.lowestScore
       );
       return {
         ...state,
@@ -45,7 +46,8 @@ export default (state = initialState, action) => {
         action.productData.imageUrl,
         action.productData.description,    
         action.productData.costumerType,
-        action.productData.score   
+        action.productData.score,
+        action.productData.lowestScore   
     
       );
       const updatedUserProducts = [...state.userProducts];
