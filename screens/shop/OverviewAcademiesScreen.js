@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-
 import HeaderButton from '../../components/UI/HeaderButton';
 import ProductItem from '../../components/shop/ProductItem';
 import * as productsActions from '../../store/actions/products';
@@ -27,8 +26,8 @@ const ProductsOverviewScreen = props => {
     setError(null);
     setIsRefreshing(true);
     
-    try {    
-      const listaGeral = productsActions.fetchProducts();//pode usar o comando no Dispatch*
+    try {
+      const listaGeral = productsActions.fetchAcademies();//pode usar o comando no Dispatch*
       await dispatch(listaGeral);
     } catch (err) {
       setError(err.message);
@@ -86,7 +85,7 @@ const ProductsOverviewScreen = props => {
   if (!isLoading && products.length === 0) {
     return (
       <View style={styles.centered}>
-        <Text>Nothing found. Start adding some ...!</Text>
+        <Text>No products found. Start adding some unless u wanna sell air!</Text>
       </View>
     );
   }
@@ -97,7 +96,7 @@ const ProductsOverviewScreen = props => {
     //         title="View Details"
     //         onPress={() => 
     //           {selectItemHandler(itemData.item.id, itemData.item.title);}}
-    //           />
+    //           /> n precisa mais, clicando no item abre detalhes dele
     <FlatList
       onRefresh={loadProducts}
       refreshing={isRefreshing}
@@ -107,27 +106,13 @@ const ProductsOverviewScreen = props => {
         <ProductItem
           image={itemData.item.imageUrl}
           title={itemData.item.title}          
-          score={itemData.item.score}
           //costumerType={itemData.item.costumerType}
-          description={itemData.item.description}
+          score={itemData.item.score}
+          //description={itemData.item.description}
           onSelect={() => {
             selectItemHandler(itemData.item.id, itemData.item.title);
           }}
-        >{/* botao COMENTADO pq ja acessa os DETALHES diretamente apertando no item */}
-          {/* <Button
-            color={Colors.primary}
-            title="View Details"
-            onPress={() => {
-              selectItemHandler(itemData.item.id, itemData.item.title);
-            }}
-          /> */}
-          {/* <Button
-            color={Colors.primary}
-            title="To Cart"
-            onPress={() => {
-              dispatch(cartActions.addToCart(itemData.item));
-            }}
-          /> */}
+        >
         </ProductItem>
       )}
     />
@@ -135,16 +120,8 @@ const ProductsOverviewScreen = props => {
 };
 
 export const screenOptions = navData => {
-  const [tituloNav,setTituloNav] = "Geral";
-  
-   const setTitulo = (escolha)=>{
-     //tipo = escolha; 
-     setTituloNav(escolha); 
-     console.log('aqui devia escrever Academias')
-     console.log(titulo);
-   };
   return {
-    headerTitle: 'Academias',
+    headerTitle: 'Match Score History',
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
@@ -156,31 +133,17 @@ export const screenOptions = navData => {
         />
       </HeaderButtons>
     ),
-    // headerRight: () => (
-    //   <HeaderButtons HeaderButtonComponent={HeaderButton}>
-    //     <Item
-    //       title="Histórico de Partidas"
-    //       iconName={Platform.OS === 'android' ? 'md-home' : 'ios-home'}
-    //       onPress={() => {dispatch(productsActions.fetchAcademies());
-    //         //navData.navigation.navigate('Cart');
-    //       }}
-    //     />
-    //     <Item
-    //       title="Mestres"
-    //       iconName={Platform.OS === 'android' ? 'md-contact' : 'ios-contact'}
-    //       onPress={() => {alterarLista('Mestres');
-    //         //navData.navigation.navigate('Cart');
-    //       }}
-    //     /> 
-    //     <Item
-    //       title="Discipulos"
-    //       iconName={Platform.OS === 'android' ? 'md-contacts' : 'ios-contacts'}
-    //       onPress={() => {setTitulo('Discípulos');
-    //         //navData.navigation.navigate('Cart');
-    //       }}
-    //     />
-    //   </HeaderButtons>
-    // )   
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>        
+        <Item
+          title="Match Score History"
+          iconName={Platform.OS === 'android' ? 'md-home' : 'ios-home'}
+          onPress={() => {
+            
+          }}
+        />
+      </HeaderButtons>
+    )   
   };
 };
 

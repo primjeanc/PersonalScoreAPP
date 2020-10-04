@@ -13,7 +13,7 @@ import Colors from '../../constants/Colors';
 import * as cartActions from '../../store/actions/cart';
 
 const ProductDetailScreen = props => {
-  const productId = props.navigation.getParam('productId');
+  const productId = props.route.params.productId;
   const selectedProduct = useSelector(state =>
     state.products.availableProducts.find(prod => prod.id === productId)
   );
@@ -22,24 +22,20 @@ const ProductDetailScreen = props => {
   return (
     <ScrollView>
       <Image style={styles.image} source={{ uri: selectedProduct.imageUrl }} />
-      <View style={styles.actions}>
-        <Button
-          color={Colors.primary}
-          title="Add to Cart"
-          onPress={() => {
-            dispatch(cartActions.addToCart(selectedProduct));
-          }}
-        />
-      </View>
-      <Text style={styles.price}>${selectedProduct.price.toFixed(2)}</Text>
-      <Text style={styles.description}>{selectedProduct.description}</Text>
+      <Text style={styles.costumerType}>Season: {selectedProduct.costumerType}</Text>
+      <Text style={styles.costumerType}>{selectedProduct.description}</Text>
+      <Text style={styles.price}>Personal Match Score: {selectedProduct.score}</Text>
+      <Text style={styles.description}>Lowest Season Score: {selectedProduct.score}</Text>
+      <Text style={styles.description}>Highest Season Score: {selectedProduct.score}</Text>
+      <Text style={styles.description}>Low Score Break: {selectedProduct.score}</Text>
+      <Text style={styles.description}>Highest Score Break: {selectedProduct.score}</Text>       
     </ScrollView>
   );
 };
 
-ProductDetailScreen.navigationOptions = navData => {
+export const screenOptions = navData => {
   return {
-    headerTitle: navData.navigation.getParam('productTitle')
+    headerTitle: navData.route.params.productTitle
   };
 };
 
@@ -56,7 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#888',
     textAlign: 'center',
-    marginVertical: 20,
+    marginVertical: 10,
     fontFamily: 'open-sans-bold'
   },
   description: {

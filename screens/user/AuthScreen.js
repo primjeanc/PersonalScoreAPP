@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Button,
   ActivityIndicator,
-  Alert
+  Alert,
+  ImageBackground
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useDispatch } from 'react-redux';
@@ -82,7 +83,7 @@ const AuthScreen = props => {
     setIsLoading(true);
     try {
       await dispatch(action);
-      props.navigation.navigate('Shop');
+      //props.navigation.navigate('Shop');
     } catch (err) {
       setError(err.message);
       setIsLoading(false);
@@ -101,13 +102,16 @@ const AuthScreen = props => {
     [dispatchFormState]
   );
 
+  const imageback = { uri:"https://fsb.zobj.net/crop.php?r=FuSrFO3wi1JU604IIhmgNcAxsaqmdYmIgF6mPiWzn6-ZJcz6AHpc0ev4KackpGQc450ARej2OIwP36bmn3O9AqKrVyBqHW5DjltNayTxIdf154GYjz82gYpi8wiE5tYWzrzVbIUfjTGcOL0BEFdxdzgjaahVAHXlffMLZt2enRQ-921FoX3_XqiaAC0"};
+
   return (
     <KeyboardAvoidingView
       behavior="padding"
       keyboardVerticalOffset={50}
       style={styles.screen}
     >
-      <LinearGradient colors={['#ffedff', '#ffe3ff']} style={styles.gradient}>
+      <ImageBackground source={imageback} style={styles.gradient}>
+      {/* <LinearGradient colors={['blue', 'cyan']} style={styles.gradient}> */}
         <Card style={styles.authContainer}>
           <ScrollView>
             <Input
@@ -139,7 +143,7 @@ const AuthScreen = props => {
               ) : (
                 <Button
                   title={isSignup ? 'Sign Up' : 'Login'}
-                  color={Colors.primary}
+                  color="blue"
                   onPress={authHandler}
                 />
               )}
@@ -155,13 +159,14 @@ const AuthScreen = props => {
             </View>
           </ScrollView>
         </Card>
-      </LinearGradient>
+      {/* </LinearGradient> */}
+      </ImageBackground>
     </KeyboardAvoidingView>
   );
 };
 
-AuthScreen.navigationOptions = {
-  headerTitle: 'Authenticate'
+export const screenOptions = {
+  headerTitle: 'MMApp'
 };
 
 const styles = StyleSheet.create({

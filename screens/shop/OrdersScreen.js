@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   View,
   FlatList,
@@ -6,14 +6,14 @@ import {
   Platform,
   ActivityIndicator,
   StyleSheet
-} from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+} from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import HeaderButton from '../../components/UI/HeaderButton';
-import OrderItem from '../../components/shop/OrderItem';
-import * as ordersActions from '../../store/actions/orders';
-import Colors from '../../constants/Colors';
+import HeaderButton from "../../components/UI/HeaderButton";
+import OrderItem from "../../components/shop/OrderItem";
+import * as ordersActions from "../../store/actions/orders";
+import Colors from "../../constants/Colors";
 
 const OrdersScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +38,7 @@ const OrdersScreen = props => {
 
   if (orders.length === 0) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text>No order found, maybe start ordering some products?</Text>
       </View>
     );
@@ -59,14 +59,14 @@ const OrdersScreen = props => {
   );
 };
 
-OrdersScreen.navigationOptions = navData => {
+export const screenOptions = navData => {
   return {
-    headerTitle: 'Your Orders',
-    headerLeft: (
+    headerTitle: "Your Orders",
+    headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Menu"
-          iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
+          iconName={Platform.OS === "android" ? "md-menu" : "ios-menu"}
           onPress={() => {
             navData.navigation.toggleDrawer();
           }}
@@ -79,8 +79,8 @@ OrdersScreen.navigationOptions = navData => {
 const styles = StyleSheet.create({
   centered: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 

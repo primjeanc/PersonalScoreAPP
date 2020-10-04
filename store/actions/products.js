@@ -7,50 +7,98 @@ export const SET_PRODUCTS = 'SET_PRODUCTS';
 
 export const fetchProducts = () => {
   return async (dispatch, getState) => {
-    // any async code you want!
+    
     const userId = getState().auth.userId;
+    const token = getState().auth.token;
+ 
     try {
       const response = await fetch(
-        'https://rn-complete-guide.firebaseio.com/products.json'
+         `https://matchscore-72cf1.firebaseio.com/products.json?auth=${token}`      
       );
-
       if (!response.ok) {
         throw new Error('Something went wrong!');
-      }
+      } 
 
       const resData = await response.json();
       const loadedProducts = [];
+      const filterby = []; 
 
       for (const key in resData) {
-        loadedProducts.push(
+    
+        loadedProducts.push(          
           new Product(
             key,
             resData[key].ownerId,
             resData[key].title,
             resData[key].imageUrl,
             resData[key].description,
-            resData[key].price
+            resData[key].costumerType,
+            resData[key].score
           )
         );
-      }
-
+      };      
+      
+      console.log(loadedProducts);
       dispatch({
         type: SET_PRODUCTS,
-        products: loadedProducts,
-        userProducts: loadedProducts.filter(prod => prod.ownerId === userId)
+        products: loadedProducts.filter(prod => prod.ownerId != userId && prod.costumerType !=filterby),//filtro ALL -LOGADO
+        userProducts: loadedProducts.filter(prod => prod.ownerId === userId),//perfil filtrado = usuario logado
+        disciples: loadedProducts.filter(prod => prod.ownerId != userId && prod.costumerType === "3")
       });
     } catch (err) {
-      // send to custom analytics server
+      
       throw err;
     }
   };
 };
 
+export const fetchAcademies = () => {
+  return async (dispatch, getState) => {
+    
+    const userId = getState().auth.userId;
+    const token = getState().auth.token;
+ 
+    try {
+      const response = await fetch(
+         `https://matchscore-72cf1.firebaseio.com/products.json?auth=${token}`   
+      );
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
+      }
+      const resData = await response.json();
+      const loadedProducts = [];
+
+      for (const key in resData) {              
+        loadedProducts.push(          
+          new Product(
+            key,
+            resData[key].ownerId,
+            resData[key].title,
+            resData[key].imageUrl,
+            resData[key].description,
+            resData[key].costumerType,
+            resData[key].score,
+          )
+        );
+      };      
+      
+      console.log(loadedProducts);
+      dispatch({
+        type: SET_PRODUCTS,
+        products: loadedProducts.filter(prod => prod.ownerId === userId /*&& prod.costumerType === "1"*/),//todas as partidas do usuario preview/overview)
+        userProducts: loadedProducts.filter(prod => prod.ownerId === userId),//lista apenas perfil do usuario logado podendo criar/editar/deletar        
+      });
+    } catch (err) {      
+      throw err;
+    }
+  };
+};             
+
 export const deleteProduct = productId => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const response = await fetch(
-      `https://rn-complete-guide.firebaseio.com/products/${productId}.json?auth=${token}`,
+      `https://matchscore-72cf1.firebaseio.com/products/${productId}.json?auth=${token}`,
       {
         method: 'DELETE'
       }
@@ -63,13 +111,13 @@ export const deleteProduct = productId => {
   };
 };
 
-export const createProduct = (title, description, imageUrl, price) => {
+export const createProduct = (title, description, imageUrl, costumerType, score) => {
   return async (dispatch, getState) => {
-    // any async code you want!
+ 
     const token = getState().auth.token;
     const userId = getState().auth.userId;
-    const response = await fetch(
-      `https://rn-complete-guide.firebaseio.com/products.json?auth=${token}`,
+    const response = await fetch(    
+      `https://matchscore-72cf1.firebaseio.com/products.json?auth=${token}`,  
       {
         method: 'POST',
         headers: {
@@ -79,13 +127,15 @@ export const createProduct = (title, description, imageUrl, price) => {
           title,
           description,
           imageUrl,
-          price,
+          costumerType,
+          score,
           ownerId: userId
         })
       }
     );
 
     const resData = await response.json();
+    console.log(resData);
 
     dispatch({
       type: CREATE_PRODUCT,
@@ -94,18 +144,19 @@ export const createProduct = (title, description, imageUrl, price) => {
         title,
         description,
         imageUrl,
-        price,
+        costumerType,
+        score,
         ownerId: userId
       }
     });
   };
 };
 
-export const updateProduct = (id, title, description, imageUrl) => {
+export const updateProduct = (id, title, description, imageUrl, costumerType, score) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const response = await fetch(
-      `https://rn-complete-guide.firebaseio.com/products/${id}.json?auth=${token}`,
+      `https://matchscore-72cf1.firebaseio.com/products/${id}.json?auth=${token}`,
       {
         method: 'PATCH',
         headers: {
@@ -114,14 +165,16 @@ export const updateProduct = (id, title, description, imageUrl) => {
         body: JSON.stringify({
           title,
           description,
-          imageUrl
+          imageUrl,
+          costumerType,
+          score          
         })
       }
     );
 
-    if (!response.ok) {
-      throw new Error('Something went wrong!');
-    }
+    // if (!response.ok) {
+    //   throw new Error('Something went wrong!');
+    // }
 
     dispatch({
       type: UPDATE_PRODUCT,
@@ -129,7 +182,9 @@ export const updateProduct = (id, title, description, imageUrl) => {
       productData: {
         title,
         description,
-        imageUrl
+        imageUrl,
+        costumerType,
+        score         
       }
     });
   };

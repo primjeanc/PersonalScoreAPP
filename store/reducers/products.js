@@ -1,4 +1,3 @@
-import PRODUCTS from '../../data/dummy-data';
 import {
   DELETE_PRODUCT,
   CREATE_PRODUCT,
@@ -9,7 +8,8 @@ import Product from '../../models/product';
 
 const initialState = {
   availableProducts: [],
-  userProducts: []
+  userProducts: [],
+  costumerTypes:[]
 };
 
 export default (state = initialState, action) => {
@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     case SET_PRODUCTS:
       return {
         availableProducts: action.products,
-        userProducts: action.userProducts
+        userProducts: action.userProducts, 
       };
     case CREATE_PRODUCT:
       const newProduct = new Product(
@@ -26,7 +26,8 @@ export default (state = initialState, action) => {
         action.productData.title,
         action.productData.imageUrl,
         action.productData.description,
-        action.productData.price
+        action.productData.costumerType,
+        action.productData.score
       );
       return {
         ...state,
@@ -39,11 +40,13 @@ export default (state = initialState, action) => {
       );
       const updatedProduct = new Product(
         action.pid,
-        state.userProducts[productIndex].ownerId,
+        state.userProducts[productIndex].ownerId,//mantem o valor atual do objeto do update
         action.productData.title,
         action.productData.imageUrl,
-        action.productData.description,
-        state.userProducts[productIndex].price
+        action.productData.description,    
+        action.productData.costumerType,
+        action.productData.score   
+    
       );
       const updatedUserProducts = [...state.userProducts];
       updatedUserProducts[productIndex] = updatedProduct;
